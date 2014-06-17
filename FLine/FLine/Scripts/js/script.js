@@ -68,15 +68,15 @@ $(document).ready(function() {
 		var map;
 		map = new GMaps({
 			div: '#map',
-			lat: 41.8902624,
-			lng: 12.4923096
+			lat: 27.9230172,
+			lng: -82.41918609999999
 		});
 		map.addMarker({
-			lat: 41.8902624,
-			lng: 12.4923096,
+		    lat: 27.9230172,
+		    lng: -82.41918609999999,
 			title: 'Contanct',
 			infoWindow: {
-				content: '15rd Avenue, New York,<br /> 156408, US<br /> <br /> Email: info@company.com <br /> Web: company.com'
+			    content: 'Causeway Crescent, Tampa, FL <br />33619, US<br /> <br /> Email: info@company.com <br /> Web: getfrontlinefit.com'
 			}
 		});
 	}

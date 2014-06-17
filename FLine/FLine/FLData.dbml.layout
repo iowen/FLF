@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.25, 9" name="FLData">
+  <DataContextMoniker Name="/FLDataDataContext" />
+  <nestedChildShapes>
+    <classShape Id="ca69be52-ed10-4a1b-8c6a-e66ece83317b" absoluteBounds="0.75, 4.125, 2, 1.7708968098958327">
+      <DataClassMoniker Name="/FLDataDataContext/Account" />
+      <nestedChildShapes>
+        <elementListCompartment Id="efaf2f32-61d5-4369-9b8e-2d8f8019e971" absoluteBounds="0.765, 4.585, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3ce32586-96c3-49c1-9696-f93a855af743" absoluteBounds="3.5, 1.25, 2, 1.1939925130208335">
+      <DataClassMoniker Name="/FLDataDataContext/Administrator" />
+      <nestedChildShapes>
+        <elementListCompartment Id="75528d6d-cad6-4887-b8da-78cbfd60942b" absoluteBounds="3.515, 1.71, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a8816c79-59b8-4321-8eea-ebd3abe51979" absoluteBounds="6.25, 3.125, 2, 1.5785953776041661">
+      <DataClassMoniker Name="/FLDataDataContext/Class" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2f25fec2-9ce9-4428-9d0e-4733bc215f08" absoluteBounds="6.265, 3.585, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="45bb46f3-5a91-4699-9629-b297902e13c2" absoluteBounds="9, 3.125, 2, 1.5785953776041661">
+      <DataClassMoniker Name="/FLDataDataContext/ClassTime" />
+      <nestedChildShapes>
+        <elementListCompartment Id="94302f5b-0673-4176-8aa1-29c2c52e9706" absoluteBounds="9.015, 3.585, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="2d5ba833-3a6c-4edc-a39d-8084f7cd2b2b" absoluteBounds="3.5, 3.375, 2, 1.1939925130208335">
+      <DataClassMoniker Name="/FLDataDataContext/Coach" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d0d82fc6-5752-4ae9-9fce-f9fe2d851f3f" absoluteBounds="3.515, 3.835, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ea19a5b4-c581-4a13-ae95-2a5a5ba2bc4b" absoluteBounds="3.5, 7.375, 2, 1.3862939453124996">
+      <DataClassMoniker Name="/FLDataDataContext/Fighter" />
+      <nestedChildShapes>
+        <elementListCompartment Id="76b9fe39-fb68-4f0b-ba55-2b994d0a2700" absoluteBounds="3.515, 7.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="75c8e233-8895-4258-b531-140be880465d" absoluteBounds="3.5, 5.5, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/FLDataDataContext/Trainer" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6bf8b3e2-80bd-4278-8f7b-18b6ddc8967d" absoluteBounds="3.515, 5.96, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(1.75 : 4.125); (1.75 : 1.84699625651042); (3.5 : 1.84699625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/FLDataDataContext/Account/Account_Administrator" />
+      <nodes>
+        <classShapeMoniker Id="ca69be52-ed10-4a1b-8c6a-e66ece83317b" />
+        <classShapeMoniker Id="3ce32586-96c3-49c1-9696-f93a855af743" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.25 : 3.91429768880208); (9 : 3.91429768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/FLDataDataContext/Class/Class_ClassTime" />
+      <nodes>
+        <classShapeMoniker Id="a8816c79-59b8-4321-8eea-ebd3abe51979" />
+        <classShapeMoniker Id="45bb46f3-5a91-4699-9629-b297902e13c2" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 3.97199625651042); (6.25 : 3.97199625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/FLDataDataContext/Coach/Coach_Class" />
+      <nodes>
+        <classShapeMoniker Id="2d5ba833-3a6c-4edc-a39d-8084f7cd2b2b" />
+        <classShapeMoniker Id="a8816c79-59b8-4321-8eea-ebd3abe51979" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 4.34699625651042); (3.5 : 4.34699625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/FLDataDataContext/Account/Account_Coach" />
+      <nodes>
+        <classShapeMoniker Id="ca69be52-ed10-4a1b-8c6a-e66ece83317b" />
+        <classShapeMoniker Id="2d5ba833-3a6c-4edc-a39d-8084f7cd2b2b" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(1.75 : 5.89589680989583); (1.75 : 8.06814697265625); (3.5 : 8.06814697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/FLDataDataContext/Account/Account_Fighter" />
+      <nodes>
+        <classShapeMoniker Id="ca69be52-ed10-4a1b-8c6a-e66ece83317b" />
+        <classShapeMoniker Id="ea19a5b4-c581-4a13-ae95-2a5a5ba2bc4b" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 5.69794840494792); (3.5 : 5.69794840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/FLDataDataContext/Account/Account_Trainer" />
+      <nodes>
+        <classShapeMoniker Id="ca69be52-ed10-4a1b-8c6a-e66ece83317b" />
+        <classShapeMoniker Id="75c8e233-8895-4258-b531-140be880465d" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

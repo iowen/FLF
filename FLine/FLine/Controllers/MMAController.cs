@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace FLine.Controllers
 {
-    public class TeamController : Controller
+    public class MMAController : Controller
     {
         //
         // GET: /Team/

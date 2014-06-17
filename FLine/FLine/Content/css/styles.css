@@ -1129,6 +1129,10 @@ section .row {
 	background-image: url("../../Images/img/header/club.jpg");
 }
 
+#coach .sub-header  {
+	background-image: url("../../Images/img/header/coach.jpg");
+}
+
 #contact .sub-header  {
 	background-image: url("../../Images/img/header/contact.jpg");
 }
@@ -1139,6 +1143,18 @@ section .row {
 
 #features .sub-header  {
 	background-image: url("../../Images/img/header/features.jpg");
+}
+
+#fighter .sub-header  {
+	background-image: url("../../Images/img/header/fighter.jpg");
+}
+
+#fighters .sub-header  {
+	background-image: url("../../Images/img/header/fighters.jpg");
+}
+
+#fitness .sub-header  {
+	background-image: url("../../Images/img/header/fitness.jpg");
 }
 
 #gal4 .sub-header  {
@@ -1176,6 +1192,11 @@ section .row {
 #tabs .sub-header  {
 	background-image: url("../../Images/img/header/general.jpg");
 }
+
+#trainer .sub-header  {
+	background-image: url("../../Images/img/header/trainer.jpg");
+}
+
 
 #trainers .sub-header  {
 	background-image: url("../../Images/img/header/general.jpg");
@@ -1288,8 +1309,8 @@ section .row {
 
 /********************************* Top Bar *********************************/
 header .top-bar {
-	background: #4f4b4c;
-	border-bottom: 1px solid #232a30;  
+	background: /*#4f4b4c*/#000;
+	border-bottom: 1px solid /*#232a30*/#000;  
 }
 
 header .top-bar ul {
@@ -1380,7 +1401,7 @@ header .main-menu {
 }
 
 header .main-menu .main-menu-line {
-	border-bottom: 1px solid #abbcc0;
+	border-bottom: 1px solid /*#abbcc0*/ #231f20;
 }
 
 header .main-menu .navbar {
@@ -1412,11 +1433,11 @@ header .main-menu .navbar .navbar-toggle .icon-bar {
 }
 
 header .main-menu .nav {
-	border-right: 1px solid #1e262e;
+	border-right: 1px solid /*#1e262e*/#231f20;
 }
 
 header .main-menu .nav > li {
-	border-left: 1px solid #1e262e;
+	border-left: 1px solid /*#1e262e*/#231f20;
 }
 
 header .main-menu .nav li > a {  
@@ -1457,7 +1478,7 @@ header .main-menu .dropdown ul {
 }
 
 header .main-menu .dropdown ul li { 
-	background-color: #252f38;
+	background-color: /*#252f38*/#000;
 	padding: 0; 
 }
 
@@ -1477,7 +1498,7 @@ header .main-menu .dropdown ul li a {
 
 /********************************* General *********************************/
 footer {
-	background: url("../../Images/img/footer-back.png");
+	background: /*url("../../Images/img/footer-back.png")*/#000;
 	color: white;    
 }
 
@@ -1565,7 +1586,7 @@ footer .misc .links li a i {
 /*********************************** Copy **********************************/
 
 footer .copyright {
-	background: #2c3640;
+	background: /*#2c3640*/#000;
 	border-top: 2px solid #1e2730;
 	padding: 1em 0;
 }
