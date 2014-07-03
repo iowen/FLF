@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="FLF" Class="FLDataDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=MANDELA\SQLEXPRESS;Initial Catalog=FLF;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="FLFConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Account" Member="Accounts">
+    <Type Name="Account">
+      <Column Name="AccountId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="NChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="NChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="CanLogIn" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Account_Administrator" Member="Administrators" ThisKey="AccountId" OtherKey="AccountId" Type="Administrator" />
+      <Association Name="Account_Class" Member="Classes" ThisKey="AccountId" OtherKey="AccountId" Type="Class" />
+      <Association Name="Account_Coach" Member="Coaches" ThisKey="AccountId" OtherKey="AccountId" Type="Coach" />
+      <Association Name="Account_Fighter" Member="Fighters" ThisKey="AccountId" OtherKey="AccountId" Type="Fighter" />
+      <Association Name="Account_Photo" Member="Photos" ThisKey="AccountId" OtherKey="AccountId" Type="Photo" />
+      <Association Name="Account_Trainer" Member="Trainers" ThisKey="AccountId" OtherKey="AccountId" Type="Trainer" />
+    </Type>
+  </Table>
+  <Table Name="dbo.WOD" Member="WODs">
+    <Type Name="WOD">
+      <Column Name="WODId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Text" Type="System.String" DbType="NChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="CrossfitId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Crossfit_WOD" Member="Crossfit" ThisKey="CrossfitId" OtherKey="CrossfitId" Type="Crossfit" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Administrator" Member="Administrators">
+    <Type Name="Administrator">
+      <Column Name="AdministratorId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AccountId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Account_Administrator" Member="Account" ThisKey="AccountId" OtherKey="AccountId" Type="Account" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Class" Member="Classes">
+    <Type Name="Class">
+      <Column Name="ClassId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AccountId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NChar(2000) NOT NULL" CanBeNull="false" />
+      <Column Name="PhotoId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Class_ClassTime" Member="ClassTimes" ThisKey="ClassId" OtherKey="ClassId" Type="ClassTime" />
+      <Association Name="Account_Class" Member="Account" ThisKey="AccountId" OtherKey="AccountId" Type="Account" IsForeignKey="true" />
+      <Association Name="Photo_Class" Member="Photo" ThisKey="PhotoId" OtherKey="PhotoId" Type="Photo" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ClassTime" Member="ClassTimes">
+    <Type Name="ClassTime">
+      <Column Name="ClassTimeId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ClassId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Day" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="StartTime" Type="System.String" DbType="NChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="EndTime" Type="System.String" DbType="NChar(20) NOT NULL" CanBeNull="false" />
+      <Association Name="Class_ClassTime" Member="Class" ThisKey="ClassId" OtherKey="ClassId" Type="Class" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Coach" Member="Coaches">
+    <Type Name="Coach">
+      <Column Name="CoachId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AccountId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PhotoId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Background" Type="System.String" DbType="NChar(2000) NOT NULL" CanBeNull="false" />
+      <Association Name="Account_Coach" Member="Account" ThisKey="AccountId" OtherKey="AccountId" Type="Account" IsForeignKey="true" />
+      <Association Name="Photo_Coach" Member="Photo" ThisKey="PhotoId" OtherKey="PhotoId" Type="Photo" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Crossfit" Member="Crossfits">
+    <Type Name="Crossfit">
+      <Column Name="CrossfitId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(4000) NOT NULL" CanBeNull="false" />
+      <Column Name="PhotoId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Caption" Type="System.String" DbType="NChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="WODDescription" Type="System.String" DbType="NChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NChar(100)" CanBeNull="true" />
+      <Association Name="Crossfit_WOD" Member="WODs" ThisKey="CrossfitId" OtherKey="CrossfitId" Type="WOD" />
+      <Association Name="Photo_Crossfit" Member="Photo" ThisKey="PhotoId" OtherKey="PhotoId" Type="Photo" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FeaturedContent" Member="FeaturedContents">
+    <Type Name="FeaturedContent">
+      <Column Name="FeaturedContentId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PhotoId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="FeaturedContent_FeaturedContentData" Member="FeaturedContentDatas" ThisKey="FeaturedContentId" OtherKey="FeatureContentId" Type="FeaturedContentData" />
+      <Association Name="Photo_FeaturedContent" Member="Photo" ThisKey="PhotoId" OtherKey="PhotoId" Type="Photo" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.FeaturedContentData" Member="FeaturedContentDatas">
+    <Type Name="FeaturedContentData">
+      <Column Name="FeaturedContentDataId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="FeatureContentId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Position" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Text" Type="System.String" DbType="NChar(1000) NOT NULL" CanBeNull="false" />
+      <Column Name="Link" Type="System.String" DbType="NChar(1000)" CanBeNull="true" />
+      <Column Name="LinkText" Type="System.String" DbType="NChar(1000)" CanBeNull="true" />
+      <Column Name="TItle" Type="System.String" DbType="NChar(100)" CanBeNull="true" />
+      <Association Name="FeaturedContent_FeaturedContentData" Member="FeaturedContent" ThisKey="FeatureContentId" OtherKey="FeaturedContentId" Type="FeaturedContent" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Fighter" Member="Fighters">
+    <Type Name="Fighter">
+      <Column Name="FighterId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AccountId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NChar(60) NOT NULL" CanBeNull="false" />
+      <Column Name="PhotoId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Bio" Type="System.String" DbType="NChar(2000) NOT NULL" CanBeNull="false" />
+      <Association Name="Account_Fighter" Member="Account" ThisKey="AccountId" OtherKey="AccountId" Type="Account" IsForeignKey="true" />
+      <Association Name="Photo_Fighter" Member="Photo" ThisKey="PhotoId" OtherKey="PhotoId" Type="Photo" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Photo" Member="Photos">
+    <Type Name="Photo">
+      <Column Name="PhotoId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Location" Type="System.String" DbType="NChar(2000) NOT NULL" CanBeNull="false" />
+      <Column Name="AccountId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Photo_Class" Member="Classes" ThisKey="PhotoId" OtherKey="PhotoId" Type="Class" />
+      <Association Name="Photo_Coach" Member="Coaches" ThisKey="PhotoId" OtherKey="PhotoId" Type="Coach" />
+      <Association Name="Photo_Crossfit" Member="Crossfits" ThisKey="PhotoId" OtherKey="PhotoId" Type="Crossfit" />
+      <Association Name="Photo_FeaturedContent" Member="FeaturedContents" ThisKey="PhotoId" OtherKey="PhotoId" Type="FeaturedContent" />
+      <Association Name="Photo_Fighter" Member="Fighters" ThisKey="PhotoId" OtherKey="PhotoId" Type="Fighter" />
+      <Association Name="Photo_Trainer" Member="Trainers" ThisKey="PhotoId" OtherKey="PhotoId" Type="Trainer" />
+      <Association Name="Account_Photo" Member="Account" ThisKey="AccountId" OtherKey="AccountId" Type="Account" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Trainer" Member="Trainers">
+    <Type Name="Trainer">
+      <Column Name="TrainerId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AccountId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PhotoId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Background" Type="System.String" DbType="NChar(2000) NOT NULL" CanBeNull="false" />
+      <Association Name="Account_Trainer" Member="Account" ThisKey="AccountId" OtherKey="AccountId" Type="Account" IsForeignKey="true" />
+      <Association Name="Photo_Trainer" Member="Photo" ThisKey="PhotoId" OtherKey="PhotoId" Type="Photo" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

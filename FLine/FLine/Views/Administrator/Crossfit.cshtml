@@ -1,0 +1,206 @@
+﻿<script>
+    function saveWorkoutImage() {
+        var pic = document.getElementById("cpic").value;
+        var pimg = "<img src=\""+pic+"\" />";
+        $("#wimg").html(pimg);
+                         
+        $.ajax({
+            type: 'Post',
+            dataType: 'json',
+            url: '@Request.Url.GetLeftPart(UriPartial.Authority)/Crossfit/UpdateWorkoutImage',
+            data: JSON.stringify({ workoutImage: pic}),
+            contentType: 'application/json; charset=utf-8',
+            async: false,
+            success: function (data) {
+                alert(data);
+                closeModal();
+            },
+            error: function (data) {
+                alert(data);
+            }
+        });
+    }
+    function saveCaption() {
+        var desc = document.getElementById("eCap").value;
+        document.getElementById("wcap").innerHTML = desc;
+        $.ajax({
+            type: 'Post',
+            dataType: 'json',
+            url: '@Request.Url.GetLeftPart(UriPartial.Authority)/Crossfit/Updatecaption',
+            data: JSON.stringify({ Caption: desc }),
+            contentType: 'application/json; charset=utf-8',
+            async: false,
+            success: function (data) {
+                alert(data);
+                closeModal();
+            },
+            error: function (data) {
+                alert(data);
+            }
+        });
+    }
+    function saveDescription() {
+        var desc = document.getElementById("eDesc").value;
+        document.getElementById("cDesc").innerHTML = desc;
+        $.ajax({
+            type: 'Post',
+            dataType: 'json',
+            url: '@Request.Url.GetLeftPart(UriPartial.Authority)/Crossfit/Updatedescription',
+            data: JSON.stringify({ Description: desc}),
+            contentType: 'application/json; charset=utf-8',
+            async: false,
+            success: function (data) {
+                alert(data);
+                closeModal();
+            },
+            error: function (data) {
+                alert(data);
+            }
+                });
+    }
+    function saveWOD() {
+        var title = document.getElementById("etitle").value;
+        var inst = document.getElementById("edesc").value;
+        var ws = document.getElementsByName("ewod[]");
+        var wd = new Array();
+        var wo = "";
+        for (var i = 0; i < ws.length; i++) {
+            wd.push(ws[i].value);
+            wo = wo + "<li class=\"wtext\">" + ws[i].value + "</li>";
+        }
+        document.getElementById("ewl").innerHTML = wo;
+        $.ajax({
+            type: 'Post',
+            dataType: 'json',
+            url: '@Request.Url.GetLeftPart(UriPartial.Authority)/Crossfit/UpdateWOD',
+            data: JSON.stringify({ Title: title, Instructions: inst, WODS:wd }),
+            contentType: 'application/json; charset=utf-8',
+            async: false,
+            success: function (data) {
+                alert(data);
+                closeModal();
+            },
+            error: function (data) {
+                alert(data);
+            }
+        });
+    }
+    function editWorkoutCaption() {
+        var cur = document.getElementById("wcap").innerHTML;
+        document.getElementById("contentt").innerHTML = "<div><span>Caption:</span><input id=\"eCap\"  value=\""+cur+"\" type=\"text\" /></div> <div style=\"float:bottom;margin-top:100px;\"><a href=\"javascript:void(0)\" class=\"btn jqShowRow\" onclick=\"saveCaption();\">Save</a></div>";
+
+        showModal();
+    }
+    function addExce() {
+        var txt = document.getElementById("ewl").innerHTML;
+        txt = txt + "<input type=\"text\"  name=\"ewod[]\" />";
+
+        $("#ewl").html(txt);
+    }
+
+    function editWOD() {
+        var curTitle = document.getElementById("wodtitle").innerHTML;
+        var curDesc = document.getElementById("woddesc").innerHTML;
+        var curWod = document.getElementsByClassName("wtext");
+        var w="";
+        for (var i = 0; i < curWod.length; i++) {
+            w = w+"<input type=\"text\" value=\""+curWod[i].innerHTML+"\" name=\"ewod[]\" />";
+        }
+        document.getElementById("contentt").innerHTML = "<div><span>Title:</span><input id=\"etitle\"  value=\"" + curTitle + "\" type=\"text\" /></div>"+
+           " <div><span>Instrucitons:</span><input id=\"edesc\"  value=\"" + curDesc + "\" type=\"text\" /></div>"+
+        "<div>Workout <a href=\"javascript:void(0)\" class=\"btn jqShowRow\" onclick=\"addExce();\">add Excercise</a><div id=\"ewl\">" + w + "</div></div>" +
+            "<div style=\"float:bottom;margin-top:100px;\"><a href=\"javascript:void(0)\" class=\"btn jqShowRow\" onclick=\"saveWOD();\">Save</a></div>";
+
+        showModal();
+    }
+    function showEditDescription() {
+        var cur = document.getElementById("cDesc").innerHTML;
+        document.getElementById("contentt").innerHTML = "<div><span>Description:</span><textarea id=\"eDesc\">"+cur+"</textarea></div> <div style=\"float:bottom;margin-top:100px;\"><a href=\"javascript:void(0)\" class=\"btn jqShowRow\" onclick=\"saveDescription();\">Save</a></div>";
+       
+        showModal();
+    }
+
+    function editWorkoutImage() {
+        document.getElementById("contentt").innerHTML = "<span>Photo:</span><input id=\"cpic\" type=\"hidden\"/><br>" +
+                                                      "<div style=\"width:250px;display:inline;float:left;\"><input type=\"file\" name=\"file_upload\" id=\"file_upload\" />" +
+                                                      "<div style=\"float:bottom;margin-top:100px;\"><a href=\"javascript:void(0)\" class=\"btn jqShowRow\" onclick=\"saveWorkoutImage();\">Save</a></div></div><div style=\"width:400px;min-width:400px;height:100%;min-height:100%;position:relative;display:inline;margin-left:30px;\" id=\"uploadedPhotos\" ><div class=\"wmk_grid\">" +
+                              "<ul id=\"photoList\" style=\"width:400px;min-width:400px;min-height:100%;height:100%;float:right;\" >" +
+                              "</ul>" +
+                              "</div></div>";
+        $('#file_upload').uploadify({
+            'swf': '\\Content\\flash\\uploadify.swf',
+            'uploader': '@Request.Url.GetLeftPart(UriPartial.Authority)/Upload/UploadPhoto',
+            'multi': 'false',
+            'buttonText': 'Select Photo',
+            'fileTypeDesc': 'Image Files',
+            'fileTypeExts': '*.gif; *.jpg; *.jpeg; *.png',
+            'onUploadSuccess': function (file, data, response) {
+                var data = data.replace(/[\\*]/g, "/");
+
+                var l = data.split("Images");
+                var loc = "/Images" + l[1];
+                var curContent = document.getElementById("photoList").innerHTML;
+                curContent = "<li  style=\"display:inline;width:237px;min-width:237px;max-width:237px;overflow:hidden;float:left;\">" +
+                    "<div style=\"width:inherit;overflow:hidden;\">" +
+                    "<img src='" + loc + "' alt='Uploaded Image' height=\"263\" width=\"237\" /><br>"
+                                      + "  </div>"
+                                   + " </li>";
+                $("#cpic").val(loc);
+                $("#photoList").html(curContent);
+            }
+        });
+        showModal();
+    }
+</script>      
+  <!-- main content -->
+            <div id="contentwrapper">
+                <div class="main_content">
+                    
+<div class="row-fluid">
+                        <div class="span5">
+                            <div class="heading clearfix">
+                            <h3 class="pull-left">About Crossfit </h3>
+                                                            <span class="pull-right label label-info ttip_t" onclick="showEditDescription();" >Edit</span>
+                                </div>
+
+                            <div id="cDesc">
+                                @ViewBag.crossfit.Description
+                            </div>
+                        </div>
+                        <div class="span7">
+                            <div class="heading clearfix">
+                                <h3 class="pull-left">Workout of the day</h3>
+                                <span class="pull-right label label-info ttip_t" onclick="editWOD()">Edit</span>
+                            </div>
+                            <div>Title :<span id="wodtitle">@ViewBag.crossfit.Title</span></div>
+                            <div>Description :<span id="woddesc">@ViewBag.crossfit.WODDescription</span></div>
+                            <div>
+                                <ul id="wodlist">
+                                    @foreach (var w in @ViewBag.crossfit.WODs)
+                                    {
+                                        <li class="wtext">@w.Text</li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span7">
+                                                     <div class="heading clearfix">
+                            <h3 class="pull-left">Workout Image </h3>
+                                                            <span class="pull-right label label-info ttip_t" onclick="editWorkoutImage()">Edit</span>
+                                </div>
+                            <div id="wimg">
+<img src="@ViewBag.crossfit.Photo.Location" />
+                            </div>
+                        </div>
+                        <div class="span5">
+                            <div class="heading clearfix">
+                                <h3 class="pull-left">Workout Image Caption</h3>
+                                <span class="pull-right label label-info ttip_t" onclick="editWorkoutCaption()">Edit</span>
+                            </div>
+                            <div id="wcap">@ViewBag.crossfit.Caption</div>
+                        </div>
+                    </div>
+                    </div>
+                </div>

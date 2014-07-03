@@ -1,0 +1,103 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+ <!-- begin Content -->
+    <section id="contact" >
+        <!-- begin Sub Header -->
+        <div class="sub-header" >
+            <div class="container">
+                <div class="row" >
+                    <ul class="sub-header-container" >
+                        <li>
+                            <h3 class="title">Contact us</h3>
+                        </li>
+                        <li>
+                            <ul class="custom-breadcrumb" >
+                                <li><h6><a href="index.html">Home</a></h6></li>
+                                <li><i class="separator entypo-play" ></i></li>
+                                <li><h6>Contact</h6></li>
+                            </ul>                    
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- end Sub Header -->
+
+        <!-- begin Contanct -->
+        <article class="article-container">
+            <div class="container" >
+   
+                <div class="row" >
+                    <div class="col-md-12">
+                    <h2 class="article-title" >Contact Frontline</h2>
+                    <span class="line" >
+                        <span class="sub-line" ></span>
+                    </span>
+                    </div>
+                </div>
+                             <div class="row">
+                                        <div class="col-md-3">
+                        <h4>Contact Information</h4>
+                        <p>8267 Causeway Blvd, Tampa, FL 33619 USA<br />
+                        Phone: (813) 360-1348<br />
+                        Email: info@company.com<br />
+                        Web: getfrontlinefit.com</p>
+                    </div>
+                    </div>
+                <div class="row">
+                    <div class="col-md-7">
+                        <div id="map"></div>
+                    </div>
+                    <div class="col-md-5 contact" >
+                        <form role="form" id="contact-form" action="@Request.Url.GetLeftPart(UriPartial.Authority)\Home\Contact" method="post" accept-charset="utf-8" target="_self">
+                          <div class="form-group">
+                            <label for="contact_name"><i class="entypo-user" ></i> Name <em>(required)</em></label>
+                            <input type="text" class="form-control" id="name" name="name">
+                          </div>
+                          <div class="form-group">
+                            <label for="contact_e-mail"><i class="entypo-mail" ></i> E-mail <em>(required)</em></label>
+                            <input type="email" class="form-control" id="email" name="email">
+                          </div>
+                          <div class="form-group">
+                            <label for="contact_subject"><i class="entypo-comment" ></i> Subject <em>(required)</em></label>
+                            <input type="text" class="form-control" id="subject" name="subject">
+                          </div>
+                          <div class="form-group">
+                            <label for="contact_message"><i class="entypo-pencil" ></i> Message</label>
+                            <textarea id="message" class="form-control" rows="6" name="message"></textarea>
+                          </div>
+                          <input class="btn btn-default" type="submit" name="submit" value="Contact us" id="submit"/>
+                        </form>
+                        <script type='text/javascript'>
+                            /* attach a submit handler to the form */
+                            $("#contact-form").submit(function (event) {
+
+                                /* stop form from submitting normally */
+                                event.preventDefault();
+
+                                /* get some values from elements on the page: */
+                                var $form = $(this),
+                                    url = $form.attr('action');
+
+                                /* Send the data using post */
+                                var posting = $.post(url, { name: $('#name').val(), email: $('#email').val(), subject: $('#subject').val(), message: $('#message').val() });
+
+                                /* Put the results in a div */
+                                posting.done(function (data) {
+                                    alert('success');
+                                });
+                            });
+</script>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <!-- end Contact -->
+
+
+        
+    </section>
+    <!-- end Content -->
+

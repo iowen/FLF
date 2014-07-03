@@ -1,0 +1,98 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<script>
+    $(document).ready(function () {
+        // override default options (also overrides global overrides)
+        $('div.expandable p').expander({
+            slicePoint: 992,  // default is 100
+            collapseTimer: 5000, // re-collapses after 5 seconds; default is 0, so no re-collapsing
+        });
+
+    });
+</script>
+ <!-- begin Content -->
+    <section id="club" >
+        <!-- begin Sub Header -->
+        <div class="sub-header" >
+            <div class="container">
+                <div class="row" >
+                    <ul class="sub-header-container" >
+                        <li>
+                            <h3 class="title">No pressure, no diamonds</h3>
+                        </li>
+                        <li>
+                            <ul class="custom-breadcrumb" >
+                                <li><h6><a href="index.html">Home</a></h6></li>
+                                <li><i class="separator entypo-play" ></i></li>
+                                <li><h6>Crossfit</h6></li>
+                            </ul>                    
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- end Sub Header -->
+
+        <!-- begin GYM Club -->
+        <article class="article-container">
+            <div class="container" >
+                
+                <div class="row" >
+                    <div class="col-md-12">
+                    <h2 class="article-title" >Crossfit</h2>
+                    <span class="line" >
+                        <span class="sub-line" ></span>
+                    </span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- -->
+                    <div class="col-md-6" >
+                        <h3>What is Crossfit?</h3>
+                        <div class="expandable">
+                        <p>@Html.Raw(ViewBag.crossfit.Description.Replace("\n", "<br>"));</p>
+                        </div>
+                         
+                       <h2 class="headers">WOD - @ViewBag.crossfit.Title</h2>
+						<span class="line" >
+							<span class="sub-line" ></span>
+						</span>
+                        <p>@ViewBag.crossfit.WODDescription</p>
+						<ul class="custom-icon-list" >
+                            @foreach (var w in ViewBag.crossfit.WODs)
+                            {
+                                <li><i class="ostr" >&nbsp;</i>@w.Text</li>
+                            }
+							
+							
+						</ul>
+						 
+                            
+                    
+                    </div>
+
+                    <div class="col-md-6" >
+                        <img src="@ViewBag.crossfit.Photo.Location" class="gym-club" alt="img" />
+                    </div>
+                </div>
+
+                <div class="row">
+                     <div class="col-md-6" >
+           
+                    </div>
+                    <!-- -->
+                   
+                    <div class="col-md-6" >
+                        <h3>@ViewBag.crossfit.Caption</h3>
+                        </div>
+                </div>
+
+            </div>
+        </article>
+        <!-- end GYM Club -->
+
+    </section>
+    <!-- end Content -->
+

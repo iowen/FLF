@@ -1,0 +1,185 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<!-- Content -->
+	<section id="home" >
+		<!-- Sub Header -->
+		<div class="sub-header" >
+			<!-- Slider -->                             
+			<div class="bannercontainer">
+			<div class="banner ">
+				<ul>   
+                    @{
+                        var cnt =0;
+                        foreach(var fc in ViewBag.featured)
+                        {
+                            cnt++;
+                            foreach(var f in fc.FeaturedContentDatas)
+                            {
+                             @Html.Raw("<li class=\"slide1\" data-transition=\"boxslide\" data-slotamount=\"1\">"+
+                       "<img src=\""+fc.Photo.Location+"\"alt=\"//\" />"+
+                       "<div  class=\"caption lfb ltb\"  data-x=\"600\" data-y=\"120\" data-speed=\"700\" data-start=\"500\" data-easing=\"easeOutBack\">"+
+					   "<h2>"+f.TItle+"</h2> </div>"+
+						"<div class=\"caption lfb ltb\"  data-x=\"600\"  data-y=\"120\"  data-speed=\"500\"  data-start=\"500\" data-easing=\"easeOutBack\" >"+
+						"<p>"+f.Text+"</p> </div>"+
+						"<div class=\"caption lfb ltb\"  data-x=\"600\"  data-y=\"120\"  data-speed=\"300\" data-start=\"500\">"+
+							"<a class=\"see_work\" href=\"#portfolio\" >sign up today</a></div> "+                                   
+					"</li>");
+                    }
+                    }        
+                    }             
+									 
+				</ul>
+			</div>
+			</div>
+			<!-- End Slider -->
+		</div>
+		<!-- Sub Header -->
+		
+		<!-- begin Intro -->
+
+
+		<!-- begin new classes -->
+		<article class="article-container">
+			<div class="container" >
+				<div class="row" >
+					<div class="col-md-12">
+
+					<h2 class="article-title" >Featured Classes</h2>
+					<span class="line" >
+						<span class="sub-line" ></span>
+					</span>
+					<a class="slider-control pull-right next" href="#new-classes" data-slide="next"></a>
+					<a class="slider-control pull-right prev" href="#new-classes" data-slide="prev"></a>
+					<a class="button-gym normal-button view-all pull-right" href="@Request.Url.GetLeftPart(UriPartial.Authority)/Classes" >view all</a>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="new-classes" >
+					<div id="new-classes" class="carousel slide">
+					<!-- Wrapper for slides -->
+					<div class="carousel-inner">
+						<div class="item active">
+                            @foreach(var cl in ViewBag.classes)
+                            {
+							<div class="col-sm-6 col-md-3" >
+								<div class="new-class" >
+									<img src="@cl.Photo.Location" alt="//" width="263" height="197"/>
+									<div class="class-title" > 
+										<div class="occult" ><a href="@Request.Url.GetLeftPart(UriPartial.Authority)/Classes/ViewClass?id=@cl.ClassId" class="link" ></a></div>
+										<h3>@cl.Name</h3>
+									</div>
+								</div>
+							</div>
+                            }
+						
+						</div>
+					</div>
+					</div>
+
+					</div>
+
+				</div>
+			</div>
+		</article>
+		<!-- end new classes --> 
+
+
+		<!-- begin No pressure, no diamonds  / The Club Featured -->
+		<article class="article-container">
+			<div class="container" >
+				<div class="row">
+					<div class="col-md-7">
+						 <h2 class="headers">WOD - @ViewBag.crossfit.Title</h2>
+						<span class="line" >
+							<span class="sub-line" ></span>
+						</span>
+                        <p>@ViewBag.crossfit.WODDescription</p>
+						<ul class="custom-icon-list" >
+                            @foreach (var w in ViewBag.crossfit.WODs)
+                            {
+                                <li><i class="ostr" >&nbsp;</i>@w.Text</li>
+                            }
+							
+							
+						</ul>
+
+
+
+						
+						
+					</div>
+					<div class="col-md-5">
+						<h2 class="headers">Upcoming Events</h2>
+						<span class="line" >
+							<span class="sub-line" ></span>
+						</span>
+						
+						<!-- begin Accordion -->
+						<div class="accordion" id="accordion2">
+							<div class="accordion-group">
+								<div class="accordion-heading">
+									<h5>Gym Fitness</h5>
+									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">+</a>
+								</div>
+								<div id="collapseOne" class="accordion-body collapse in">
+								<div class="accordion-inner">
+									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">-</a>
+									<h5>Indoor Cycling</h5>
+									<p>
+										Ut a molestie urna. Vestibulum malesuada, diam ut mollis varius, lorem urna euismod purus, ut varius est erat a orci. Sed ultricies elit eget venenatis tristique. Sed tempus egestas ante, vel ullamcorper nulla ultricies at. Maecenas pellentesque rhoncus egestas. Aenean molestie nisl eget semper pretium. Praesent adipiscing faucibus magna, eu vulputate ante volutpat volutpat and ulla facilisi.
+									</p>
+								</div>
+								</div>
+							</div>
+							
+							<div class="accordion-group">
+								<div class="accordion-heading">
+									<h5>Yoga Pilates</h5>
+									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">+</a>
+								</div>
+								<div id="collapseTwo" class="accordion-body collapse">
+								<div class="accordion-inner">
+									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">-</a>
+									<h5>Indoor Cycling</h5>
+									<p>
+										Ut a molestie urna. Vestibulum malesuada, diam ut mollis varius, lorem urna euismod purus, ut varius est erat a orci. Sed ultricies elit eget venenatis tristique. Sed tempus egestas ante, vel ullamcorper nulla ultricies at. Maecenas pellentesque rhoncus egestas. Aenean molestie nisl eget semper pretium. Praesent adipiscing faucibus magna, eu vulputate ante volutpat volutpat and ulla facilisi.
+									</p>
+								</div>
+								</div>
+							</div>
+
+							<div class="accordion-group">
+								<div class="accordion-heading">
+									<h5>Cardio Fitness</h5>
+									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">+</a>
+								</div>
+								<div id="collapseThree" class="accordion-body collapse">
+								  <div class="accordion-inner">
+									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">-</a>
+									<h5>Indoor Cycling</h5>
+									<p>
+										Ut a molestie urna. Vestibulum malesuada, diam ut mollis varius, lorem urna euismod purus, ut varius est erat a orci. Sed ultricies elit eget venenatis tristique. Sed tempus egestas ante, vel ullamcorper nulla ultricies at. Maecenas pellentesque rhoncus egestas. Aenean molestie nisl eget semper pretium. Praesent adipiscing faucibus magna, eu vulputate ante volutpat volutpat and ulla facilisi.
+									</p>
+								</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</article>
+		<!-- end No pressure, no diamonds  / The Club Featured -->
+
+
+      
+
+
+		<!-- end Bodybuilding Supplements -->
+	</section>
+
+	<!-- end content -->
+
+
+

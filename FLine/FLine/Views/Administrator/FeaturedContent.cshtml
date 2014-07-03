@@ -1,0 +1,189 @@
+﻿<script>
+    var cnt = 1;
+    function saveFeaturedContent() {
+        var titles = document.getElementsByName("fTitles[]");
+        var texts = document.getElementsByName("fText[]");
+        var links = document.getElementsByName("flnk[]");
+        var linkTs = document.getElementsByName("fltxt[]");
+        var tPos = document.getElementsByName("ffpos[]");
+        var pic = document.getElementById("fpic").value;
+        alert("saving featured");
+        var tl = new Array();
+        var tx = new Array();
+        var ln = new Array();
+        var lt = new Array();
+        var tp = new Array();
+
+        alert("here");
+        for (var i = 0; i < titles.length; i++) {
+
+            tl.push(titles[i].value);
+            tx.push(texts[i].value);
+            ln.push(links[i].value);
+            lt.push(linkTs[i].value);
+            tp.push(tPos[i].value);
+        }
+        $.ajax({
+            type: 'Post',
+            dataType: 'json',
+            url: '@Request.Url.GetLeftPart(UriPartial.Authority)/FeaturedContent/Add',
+            data: JSON.stringify({ titles: tl, texts: tx,links: ln, linkTexts: lt, positions:tp, bGrnd: pic }),
+            contentType: 'application/json; charset=utf-8',
+            async: false,
+            success: function (data) {
+                alert(data);
+              //  closeModal();
+            },
+            error: function (data) {
+                alert(data);
+            }
+        });
+    }
+    function addText() {
+        var txt = document.getElementById("flinks").innerHTML;
+        txt = txt + "<div><span>Title:</span><input type=\"text\" id=\"fTitle"+cnt+"\" name=\"fTitles[]\"></div><div><span>Text:</span><input type=\"text\" id=\"lText"+cnt+"\" name=\"fText[]\"></div>" +
+                                                        "<div><span>Link Text:</span><input id=\"ltext"+cnt+"\" name=\"fltxt[]\"/><span>Link:</span><input id=\"lnk"+cnt+"\" name=\"flnk[]\"/></div>" +
+                                                             "<div><span>Position:</span><select id=\"fpos"+cnt+"\" name=\"ffpos[]\">" +
+                                                             "<option value=\"1\">Left Bottom</option>" +
+                                                             "<option value=\"2\">Middle Bottom</option>" +
+                                                             "<option value=\"3\">Right Bottom</option>" +
+                                                             "<option value=\"4\">Middle - Left Bottom</option>" +
+                                                             "<option value=\"5\">Middle -  Right</option>" +
+
+                                                            " </select></div>";
+
+        $("#flinks").html(txt);
+        cnt = cnt + 1;
+    }
+    function showAddFeatured() {
+        document.getElementById("contentt").innerHTML = "<a href=\"javascript:void(0)\" class=\"btn jqShowRow\" onclick=\"addText();\">add Text</a><div id=\"flinks\"><div><span>Title:</span><input type=\"text\" id=\"fTitle0\" name=\"fTitles[]\"></div>" +
+                                                        "<div><span>Text:</span><input type=\"text\" id=\"lText0\" name=\"fText[]\"></div>" +
+                                                        "<div><span>Link Text:</span><input id=\"ltext0\" name=\"fltxt[]\"/><span>Link:</span><input id=\"lnk0\" name=\"flnk[]\"/></div>" +
+                                                             "<div><span>Position:</span><select id=\"fpos0\" name=\"ffpos[]\">"+
+                                                             "<option value=\"1\">Left Bottom</option>" +
+                                                             "<option value=\"2\">Middle Bottom</option>" +
+                                                             "<option value=\"3\">Right Bottom</option>" +
+                                                             "<option value=\"4\">Middle - Left Bottom</option>" +
+                                                             "<option value=\"5\">Middle -  Right</option>" +
+
+                                                            " </select></div></div>" +
+                                                        "<span>Photo:</span><input id=\"fpic\" type=\"hidden\"/><br>" +
+                                                        "<div style=\"width:250px;display:inline;float:left;\"><input type=\"file\" name=\"file_upload\" id=\"file_upload\" />" +
+                                                        "<div style=\"float:bottom;margin-top:100px;\"><a href=\"javascript:void(0)\" class=\"btn jqShowRow\" onclick=\"saveFeaturedContent();\">Save</a><a href=\"javascript:void(0)\" class=\"btn jqShowRow\" onclick=\"closeModal();\" style=\"margin-left:20px;\">Cancel</a></div></div><div style=\"width:400px;min-width:400px;height:100%;min-height:100%;position:relative;display:inline;margin-left:30px;\" id=\"uploadedPhotos\" ><div class=\"wmk_grid\">" +
+                                "<ul id=\"photoList\" style=\"width:400px;min-width:400px;min-height:100%;height:100%;float:right;\" >" +
+                                "</ul>" +
+                                "</div></div>";
+        $('#file_upload').uploadify({
+            'swf': '\\Content\\flash\\uploadify.swf',
+            'uploader': '@Request.Url.GetLeftPart(UriPartial.Authority)/Upload/UploadPhoto',
+            'multi': 'false',
+            'buttonText': 'Select Photo',
+            'fileTypeDesc': 'Image Files',
+            'fileTypeExts': '*.gif; *.jpg; *.jpeg; *.png',
+            'onUploadSuccess': function (file, data, response) {
+                var data = data.replace(/[\\*]/g, "/");
+
+                var l = data.split("Images");
+                var loc = "/Images" + l[1];
+                var curContent = document.getElementById("photoList").innerHTML;
+                curContent = "<li  style=\"display:inline;width:237px;min-width:237px;max-width:237px;overflow:hidden;float:left;\">" +
+                    "<div style=\"width:inherit;overflow:hidden;\">" +
+                    "<img src='" + loc + "' alt='Uploaded Image' height=\"263\" width=\"237\" /><br>"
+                                      + "  </div>"
+                                   + " </li>";
+                $("#fpic").val(loc);
+                $("#photoList").html(curContent);
+            }
+        });
+        showModal();
+    }
+</script>
+      <!-- main content -->
+            <div id="contentwrapper">
+                <div class="main_content">
+                    
+                  
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <h3 class="heading">Featured Content</h3>
+                            <div class="btn-group sepH_b">
+                                <button data-toggle="dropdown" class="btn dropdown-toggle">Action <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="javascript:void(0)" onclick="showAddFeatured();"><i class="icon-plus-sign"></i>&nbsp;&nbsp;Add</a></li>
+                                    <li><a href="javascript:void(0)"><i class="icon-pencil"></i>&nbsp;&nbsp;Edit</a></li>
+                                    <li><a href="javascript:void(0)"><i class="icon-trash"></i>&nbsp;&nbsp;Delete</a></li>
+                                </ul>
+                            </div>
+                            <table class="table table-bordered table-striped" id="smpl_tbl">
+                                <thead>
+                                    <tr>
+                                        <th style="width:10px"></th>
+                                        <th></th>
+   <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach(var f in ViewBag.featuredContent)
+                                    {
+                                    <tr>
+                                        <td><input type="checkbox" name="row_sel" /></td>
+                                        <td><img src="@f.Photo.Location" width="50" height="50" /></td>
+                                        <td></td>
+                                        </tr>
+                                    }
+                                   
+                                </tbody>
+                            </table>
+                                <!-- Modal -->
+                                <div id="modalRow" class="modal hide fade" aria-hidden="true">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                        <h3>Row details</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table class="table table-bordered table-striped" id="modal_table">
+                                            <thead>
+                                                <tr>
+                                                    <th>id</th>
+                                                    <th>Customer</th>
+                                                    <th>Status</th>
+                                                    <th>Date Added</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    
+                    <!-- hide elements (for later use) -->
+                    <div class="hide">
+                        <!-- actions for datatables -->
+                        <div class="dt_gal_actions">
+                            <div class="btn-group">
+                                <button data-toggle="dropdown" class="btn dropdown-toggle">Action <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" class="delete_rows_dt" data-tableid="dt_gal"><i class="icon-trash"></i> Delete</a></li>
+                                    <li><a href="javascript:void(0)">Lorem ipsum</a></li>
+                                    <li><a href="javascript:void(0)">Lorem ipsum</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- confirmation box -->
+                        <div id="confirm_dialog" class="cbox_content">
+                            <div class="sepH_c tac"><strong>Are you sure you want to delete this row(s)?</strong></div>
+                            <div class="tac">
+                                <a href="#" class="btn btn-gebo confirm_yes">Yes</a>
+                                <a href="#" class="btn confirm_no">No</a>
+                            </div>
+                        </div>
+                    </div>
+                        
+                </div>
+            

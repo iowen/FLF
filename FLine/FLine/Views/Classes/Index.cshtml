@@ -1,0 +1,122 @@
+﻿
+
+    <!-- Begin Content -->
+    <section id="classes" >
+        <div class="sub-header" >
+            <div class="container">
+                <div class="row" >
+                    <ul class="sub-header-container" >
+                        <li>
+                            <h3 class="title">No pressure, no diamonds</h3>
+                        </li>
+                        <li>
+                            <ul class="custom-breadcrumb" >
+                                <li><h6><a href="index.html">Home</a></h6></li>
+                                <li><i class="separator entypo-play" ></i></li>
+                                <li><h6>Classes</h6></li>
+                            </ul>                    
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- begin Classes -->
+        <article class="article-container">
+            <div class="container grid magic-grid" >
+              <div class="row" >                    <div class="col-md-12">
+                    <h2 class="article-title" >Weekly Schedule</h2>
+                    <span class="line" >
+                        <span class="sub-line" ></span>
+                    </span>
+                    </div>  <div id='calendar'></div></div>
+                <div class="row" >
+                    <div class="col-md-12">
+                    <h2 class="article-title" >Classes at the Club</h2>
+                    <span class="line" >
+                        <span class="sub-line" ></span>
+                    </span>
+                    </div>
+                </div>
+
+               <!--div class="row content"-->
+                   
+               <!--/ div -->
+
+
+                <div class="row content">
+                    @foreach(var c in ViewBag.classes)
+                    {
+                    <div class="element salsa" >
+                        <div class="link" >
+                            <a href="@Request.Url.GetLeftPart(UriPartial.Authority)/Classes/ViewClass?id=@c.ClassId"></a>
+                            <img src="@c.Photo.Location" alt="//" width="370" height="254"/>
+                        </div>
+                        <div class="title">
+                            <h4>@c.Name</h4>
+                            <p>Teacher: @c.Account.FirstName &nbsp; @c.Account.LastName</p>
+                        </div>
+                    </div>
+                    }
+                   
+                    </div>
+                </div>
+
+            </div>
+        </article> 
+        <!-- end Classes --> 
+        
+ 
+    </section>
+<script type='text/javascript'>
+     var year = new Date().getFullYear();
+     var month = new Date().getMonth();
+     var day = new Date().getDate();
+     var dy = new Date().getDay();
+
+
+
+  
+     $('#calendar').fullCalendar({
+         header: {
+             left: '',
+             center: '',
+             right: ''
+         },
+         minTime: '07:00:00',
+         maxTime: '21:00:00',
+         defaultView: 'agendaWeek',
+         editable: false,
+         firstDay: 0,
+         slotDuratio: '00:30:00',
+         allDaySlot: false,
+         height:350,
+         events: [
+          @{
+              int counter = 0;
+              DateTime today = DateTime.Now;
+              foreach(var ccc in ViewBag.classes)
+          {
+                                foreach(var cc in ccc.ClassTimes)
+          {
+                  var stod = cc.StartTime.Replace("pm", "").Split(':');
+                  var etod = cc.EndTime.Replace("pm", "").Split(':');
+                        
+              int td =today.Day-(int)today.DayOfWeek+cc.Day ;
+     @Html.Raw(" {'id':" + counter.ToString() + ",'allDay':false, 'start': '"+today.Year+"-"+today.Month.ToString("00")+"-"+td.ToString("00")+ "T"+(12+int.Parse(stod[0]))+":00:00' , 'end': '"+today.Year+"-"+today.Month.ToString("00")+"-"+td.ToString("00")+ "T"+(12+int.Parse(etod[0]))+":00:00' ,'title':'" + ccc.Name + "'},");
+                                                                                                                                                                                                                                       counter++;
+          }
+          }
+          }
+
+         ]
+     });
+             
+
+
+ 
+
+</script>
+    <!-- END HOME -->
+
+

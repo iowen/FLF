@@ -1,0 +1,66 @@
+﻿
+    <!-- begin Content -->
+    <section id="single-class" >
+        <!-- begin Sub Header -->
+        <div class="sub-header" >
+            <div class="container">
+                <div class="row" >
+                    <ul class="sub-header-container" >
+                        <li>
+                            <h3 class="title">No pressure, no diamonds</h3>
+                        </li>
+                        <li>
+                            <ul class="custom-breadcrumb" >
+                                <li><h6><a href="index.html">Home</a></h6></li>
+                                <li><i class="separator entypo-play" ></i></li>
+                                <li><h6><a href="#">Classes</a></h6></li>
+                                <li><i class="separator entypo-play" ></i></li>
+                                <li><h6>Single Class</h6></li>
+                            </ul>                    
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- end Sub Header -->
+
+        <article class="article-container">
+            <div class="container" >
+                <div class="row" >
+                    <div class="col-md-12">
+                    <h2 class="article-title" >@ViewBag.cl.Name</h2>
+                    <span class="line" >
+                        <span class="sub-line" ></span>
+                    </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <h2>Description</h2>
+                        <p>@ViewBag.cl.Description</p>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="panel panel-gym">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Details</h3>
+                            </div>
+                            <div class="panel-body">
+                                <ul class="custom-icon-list" >
+                                    <li><i class="entypo-user" ></i>Teacher: @ViewBag.cl.Account.FirstName &nbsp; @ViewBag.cl.Account.LastName </li>
+                                    @foreach (var ct in @ViewBag.cl.ClassTimes)
+                                    {
+                                    <li><i class="entypo-calendar" ></i>@ViewBag.dow[@ct.Day],@ct.StartTime - @ct.EndTime</li>
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </article>
+
+      
+       
+    </section>
+    <!-- end content -->

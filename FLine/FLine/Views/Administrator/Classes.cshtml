@@ -1,0 +1,317 @@
+﻿
+<style>
+    .ui-timepicker-wrapper {
+	overflow-y: auto;
+	height: 150px;
+	width: 6.5em;
+	background: #fff;
+	border: 1px solid #ddd;
+	-webkit-box-shadow:0 5px 10px rgba(0,0,0,0.2);
+	-moz-box-shadow:0 5px 10px rgba(0,0,0,0.2);
+	box-shadow:0 5px 10px rgba(0,0,0,0.2);
+	outline: none;
+	z-index: inherit;
+	margin: 0;
+}
+
+.ui-timepicker-wrapper.ui-timepicker-with-duration {
+	width: 11em;
+}
+
+.ui-timepicker-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.ui-timepicker-duration {
+	margin-left: 5px; color: #888;
+}
+
+.ui-timepicker-list:hover .ui-timepicker-duration {
+	color: #888;
+}
+
+.ui-timepicker-list li {
+	padding: 3px 0 3px 5px;
+	cursor: pointer;
+	white-space: nowrap;
+	color: #000;
+	list-style: none;
+	margin: 0;
+}
+
+.ui-timepicker-list:hover .ui-timepicker-selected {
+	background: #fff; color: #000;
+}
+
+li.ui-timepicker-selected,
+.ui-timepicker-list li:hover,
+.ui-timepicker-list .ui-timepicker-selected:hover {
+	background: #1980EC; color: #fff;
+}
+
+li.ui-timepicker-selected .ui-timepicker-duration,
+.ui-timepicker-list li:hover .ui-timepicker-duration {
+	color: #ccc;
+}
+
+.ui-timepicker-list li.ui-timepicker-disabled,
+.ui-timepicker-list li.ui-timepicker-disabled:hover,
+.ui-timepicker-list li.ui-timepicker-selected.ui-timepicker-disabled {
+	color: #888;
+	cursor: default;
+}
+
+.ui-timepicker-list li.ui-timepicker-disabled:hover,
+.ui-timepicker-list li.ui-timepicker-selected.ui-timepicker-disabled {
+	background: #f2f2f2;
+}
+</style>
+<script>
+    var cnt = 1;
+    function saveClass() {
+        var days = document.getElementsByName("sday[]");
+        var starts = document.getElementsByName("sstart[]");
+        var ends = document.getElementsByName("ssend[]");
+        var teacher = document.getElementById("teach0").value;
+        var title = document.getElementById("stitle").value;
+        var desc = document.getElementById("sdesc").value;
+        var pic = document.getElementById("cpic").value;
+        var d = new Array();
+        var ss = new Array();
+        var se = new Array();
+        alert("here");
+        for (var i=0;i<days.length;i++)
+        {
+            d.push(days[i].value);
+            ss.push(starts[i].value);
+            se.push(ends[i].value);
+
+        }
+        alert("sending");
+        $.ajax({
+            type: 'Post',
+            dataType: 'json',
+            url: '@Request.Url.GetLeftPart(UriPartial.Authority)/Classes/Add',
+            data: JSON.stringify({ sTitle:title, sDesc: desc, sPic: pic, sDays: d , sStarts: ss, sEnds: se, sTeacher: teacher}),
+            contentType: 'application/json; charset=utf-8',
+            async: false,
+            success: function (data) {
+                alert(data);
+                closeModal();
+            },
+            error: function (data) {
+                alert(data);
+            }
+        });
+    }
+    function addTime() {
+        var txt = document.getElementById("schedule").innerHTML;
+        txt = txt + "<div class=\"sitem\"><span>Day:</span><select name=\"sday[]\">" +
+                                                        "<option value=\"0\">Sunday</option>" +
+                                                        "<option value=\"1\">Monday</option>" +
+                                                        "<option value=\"2\">Tuesday</option>" +
+                                                        "<option value=\"3\">Wednesday</option>" +
+                                                        "<option value=\"4\">Thursday</option>" +
+                                                        "<option value=\"5\">Friday</option>" +
+                                                        "<option value=\"6\">Saturday</option>" +
+                                                        "</select>" +
+                                                        "<span>Time:</span><input name=\"sstart[]\" id=\"start"+cnt+"\"/><input name=\"ssend[]\" id=\"end"+cnt+"\"/>" +
+                                                        "</div>";
+
+        $("#schedule").html(txt);
+        $('#start' + cnt).timepicker({ 'step': 5, 'appendTo': $("#contentt") });
+        $('#end' + cnt).timepicker({ 'step': 5, 'appendTo': $("#contentt") });
+        cnt = cnt + 1;
+    }
+    function showAddClass() {
+        document.getElementById("contentt").innerHTML = "<div><span>Title:</span><input type=\"text\" id=\"stitle\"></div>" +
+                                                        "<div><span>Description:</span><textarea id=\"sdesc\"></textarea><a href=\"javascript:void(0)\" class=\"btn jqShowRow\" onclick=\"addTime();\">add Time</a></div>" +
+                                                     
+                                                        "<span>Teacher:</span><input  id=\"teach0\"/><br>" +
+                                                           "<div id=\"schedule\">" +
+                                                        "<div class=\"sitem\"><span>Day:</span><select name=\"sday[]\">" +
+                                                        "<option value=\"0\">Sunday</option>" +
+                                                        "<option value=\"1\">Monday</option>" +
+                                                        "<option value=\"2\">Tuesday</option>" +
+                                                        "<option value=\"3\">Wednesday</option>" +
+                                                        "<option value=\"4\">Thursday</option>" +
+                                                        "<option value=\"5\">Friday</option>" +
+                                                        "<option value=\"6\">Saturday</option>" +
+                                                        "</select>" +
+                                                        
+
+                                                        "<span>Time:</span><input name=\"sstart[]\" id=\"start0\"/><input name=\"ssend[]\" id=\"end0\"/><br>" +
+                                                        "</div></div>" +
+                                                        "<span>Photo:</span><input id=\"cpic\" type=\"hidden\"/><br>"+
+                                                        "<div style=\"width:250px;display:inline;float:left;\"><input type=\"file\" name=\"file_upload\" id=\"file_upload\" />" +
+                                                        "<div style=\"float:bottom;margin-top:100px;\"><a href=\"javascript:void(0)\" class=\"btn jqShowRow\" onclick=\"saveClass();\">Save</a><a href=\"javascript:void(0)\" class=\"btn jqShowRow\" onclick=\"closeModal();\" style=\"margin-left:20px;\">Cancel</a></div></div><div style=\"width:400px;min-width:400px;height:100%;min-height:100%;position:relative;display:inline;margin-left:30px;\" id=\"uploadedPhotos\" ><div class=\"wmk_grid\">" +
+                                "<ul id=\"photoList\" style=\"width:400px;min-width:400px;min-height:100%;height:100%;float:right;\" >" +
+                                "</ul>"+    
+                                "</div></div>";
+   
+        $('#start0').timepicker({ 'step': 5, 'appendTo': $("#contentt") });
+        $('#end0').timepicker({ 'step': 5, 'appendTo': $("#contentt") });
+        
+        $('#file_upload').uploadify({
+            'swf': '\\Content\\flash\\uploadify.swf',
+            'uploader': '@Request.Url.GetLeftPart(UriPartial.Authority)/Upload/UploadPhoto',
+            'multi': 'false',
+            'buttonText': 'Select Photo',
+            'fileTypeDesc': 'Image Files',
+            'fileTypeExts': '*.gif; *.jpg; *.jpeg; *.png',
+            'onUploadSuccess': function (file, data, response) {
+                var data = data.replace(/[\\*]/g, "/");
+
+                var l = data.split("Images");
+                var loc = "/Images" + l[1];
+                var curContent = document.getElementById("photoList").innerHTML;
+                curContent =  "<li  style=\"display:inline;width:237px;min-width:237px;max-width:237px;overflow:hidden;float:left;\">" +
+                    "<div style=\"width:inherit;overflow:hidden;\">" +
+                    "<img src='" + loc + "' alt='Uploaded Image' height=\"263\" width=\"237\" /><br>"
+                                      + "  </div>"
+                                   + " </li>";
+                $("#cpic").val(loc);
+                $("#photoList").html(curContent);
+            }
+        });
+
+        var availableTags = [
+          @foreach(var a in ViewBag.accounts){
+             @Html.Raw( @String.Format("\"{0} {1}\",", @a.FirstName.Trim(), @a.LastName.Trim()));
+          }
+                 ];
+        $("#teach0").autocomplete({
+            source: availableTags,
+           appendTo: "#contentt"
+        });
+        showModal();
+
+    }
+
+    function showEditClass() {
+        var val;
+        $("input:checkbox[name=row_sel]:checked").each(function()
+        {
+            val = $(this).val();
+        });
+
+        alert(val);
+        $.ajax({
+            type: 'Post',
+            dataType: 'json',
+            url: '@Request.Url.GetLeftPart(UriPartial.Authority)/Classes/Get',
+            data: JSON.stringify({ id: val}),
+            contentType: 'application/json; charset=utf-8',
+            async: false,
+            success: function (data) {
+                var v = JSON.stringify(data);
+              //  alert(v[0]);
+               // closeModal();
+            },
+            error: function (data) {
+                alert(data);
+            }
+         });
+
+    }
+</script>
+ <script>
+     $(function () {
+
+     });
+  </script>
+
+      <!-- main content -->
+            <div id="contentwrapper">
+                <div class="main_content">
+                    
+                  
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <h3 class="heading">Classes</h3>
+                            <div class="btn-group sepH_b">
+                                <button data-toggle="dropdown" class="btn dropdown-toggle">Action <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="javascript:void(0)" onclick="showAddClass();"><i class="icon-plus-sign"></i>&nbsp;&nbsp;Add</a></li>
+                                    <li><a href="javascript:void(0)" onclick="showEditClass();"><i class="icon-pencil"></i>&nbsp;&nbsp;Edit</a></li>
+                                    <li><a href="javascript:void(0)"><i class="icon-trash"></i>&nbsp;&nbsp;Delete</a></li>
+                                </ul>
+                            </div>
+                            <table class="table table-bordered table-striped" id="smpl_tbl">
+                                <thead>
+                                    <tr>
+                                        <th style="width:10px"></th>
+                                        <th>Title</th>
+                                        <th>Teacher</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var c in ViewBag.classes)
+                                    {
+                                                                            <tr>
+                                        <td><input type="checkbox" name="row_sel" value="@c.ClassId"/></td>
+                                          <td>@c.Name</td>
+                                        <td>@c.Account.FirstName &nbsp; @c.Account.LastName</td>
+                                        <td><a href="javascript:void(0)" class="btn jqShowRow" onclick="showViewClass(@c.ClassId);">View</a></td>
+                                    </tr>
+                                    }
+
+                                   
+                                </tbody>
+                            </table>
+                                <!-- Modal -->
+                                <div id="modalRow" class="modal hide fade" aria-hidden="true">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                        <h3>Row details</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table class="table table-bordered table-striped" id="modal_table">
+                                            <thead>
+                                                <tr>
+                                                    <th>id</th>
+                                                    <th>Customer</th>
+                                                    <th>Status</th>
+                                                    <th>Date Added</th>
+                                                    <th>Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    
+                    <!-- hide elements (for later use) -->
+                    <div class="hide">
+                        <!-- actions for datatables -->
+                        <div class="dt_gal_actions">
+                            <div class="btn-group">
+                                <button data-toggle="dropdown" class="btn dropdown-toggle">Action <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" class="delete_rows_dt" data-tableid="dt_gal"><i class="icon-trash"></i> Delete</a></li>
+                                    <li><a href="javascript:void(0)">Lorem ipsum</a></li>
+                                    <li><a href="javascript:void(0)">Lorem ipsum</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- confirmation box -->
+                        <div id="confirm_dialog" class="cbox_content">
+                            <div class="sepH_c tac"><strong>Are you sure you want to delete this row(s)?</strong></div>
+                            <div class="tac">
+                                <a href="#" class="btn btn-gebo confirm_yes">Yes</a>
+                                <a href="#" class="btn confirm_no">No</a>
+                            </div>
+                        </div>
+                    </div>
+                        
+                </div>
+            

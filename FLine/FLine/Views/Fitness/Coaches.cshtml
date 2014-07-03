@@ -1,0 +1,74 @@
+﻿
+    <!-- Begin Content -->
+    <section id="trainers" >
+        <!-- begin SubHeader -->
+        <div class="sub-header" >
+            <div class="container">
+                <div class="row" >
+                    <ul class="sub-header-container" >
+                        <li>
+                            <h3 class="title">Live's short. Live passionately.</h3>
+                        </li>
+                        <li>
+                            <ul class="custom-breadcrumb" >
+                                <li><h6><a href="index.html">Home</a></h6></li>
+                                <li><i class="separator entypo-play" ></i></li>
+                                <li><h6>Team</h6></li>
+                                <li><i class="separator entypo-play" ></i></li>
+                                <li><h6>Coaches</h6></li>
+                            </ul>                    
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- end Sub Header -->
+
+        <!--begin All Trainers -->
+        <article class="article-container">
+            <div class="container grid slider-grid" >
+                <div class="row" >
+                    <div class="col-md-12">
+                        <h2 class="article-title"> All our Coaches</h2>
+                        <span class="line" >
+                            <span class="sub-line" ></span>
+                        </span>
+                      
+                    </div>
+                </div>
+
+                <div class="row content">
+                    <div id="slider-trainers" class=" slide">
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+
+                        <!-- items sets -->
+                        <div class="item active">
+                            @foreach (var c in ViewBag.coaches)
+                            {
+                            <!-- item 1 -->
+                            <div class="element" >
+                                <div class="link" >
+                                    <img src="@c.Photo.Location" alt="//" width="250" height="250"/>
+                                </div>
+                                <div class="title">
+                                    <h4 class="testimonials-name" ><a href="@Request.Url.GetLeftPart(UriPartial.Authority)/Fitness/Coach?id=@c.CoachId">  @c.Account.FirstName &nbsp; @c.Account.LastName</a></h4>
+                                    <h6 class="testimonials-position" ><a href="#">CrossFit Coach</a></h6>
+                                    <ul class="social" >
+                                        <li><a href="#"><i class="entypo-facebook" ></i></a></li>
+                                        <li><a href="#"><i class="entypo-twitter" ></i></a></li>
+                                        <li><a href="#"><i class="entypo-linkedin" ></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            }
+                    </div>
+                    </div>
+                </div>
+
+            </div>
+        </article>
+        <!--end All Trainers -->
+
+
+    

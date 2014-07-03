@@ -1,0 +1,89 @@
+﻿  <!-- begin Content -->
+    <section id="trainer" >
+        <!-- begin Sub Header -->
+        <div class="sub-header" >
+            <div class="container">
+                <div class="row" >
+                    <ul class="sub-header-container" >
+                        <li>
+                            <h3 class="title">No pressure, no diamonds</h3>
+                        </li>
+                        <li>
+                            <ul class="custom-breadcrumb" >
+                                <li><h6><a href="index.html">Home</a></h6></li>
+                                <li><i class="separator entypo-play" ></i></li>
+                                <li><h6><a href="#">Classes</a></h6></li>
+                                <li><i class="separator entypo-play" ></i></li>
+                                <li><h6>Single Trainer</h6></li>
+                            </ul>                    
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- end Sub Header -->
+
+
+        <!-- begin Trainer Profile -->
+        <article class="article-container">
+            <div class="container" >
+                <div class="row" >
+                    <div class="col-md-12">
+                    <h2 class="article-title" >@ViewBag.trainer.Account.FirstName &nbsp; @ViewBag.trainer.Account.LastName</h2>                  
+                    <span class="line" >
+                        <span class="sub-line" ></span>
+                    </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-5 col-md-3">
+                    <figure>
+                        <img src="@ViewBag.trainer.Photo.Location" alt="image">
+                    </figure>
+                        <div class="trainer-photo" >
+                            
+                        </div>
+                    </div>
+                    <div class="sol-sm-7 col-md-5">
+                        <h2>Background</h2>
+                        <p>@ViewBag.trainer.Background</p>
+                    </div>
+                    <div class="col-md-4">
+                         <h2 class="article-title">Classes</h2>
+                        <!-- begin Accordion -->
+                        <div class="accordion" id="accordion2">
+                          
+                            @foreach(var cl in @ViewBag.trainer.Account.Classes)
+                            {
+                            <div class="accordion-group">
+                                <div class="accordion-heading">
+                                    <h5>@cl.Name</h5>
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">+</a>
+                                </div>
+                                <div id="collapseOne" class="accordion-body collapse in">
+                                <div class="accordion-inner">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">-</a>
+                                 
+                                    <p>
+                                        @cl.Description
+                                    </p>
+                                </div>
+                                </div>
+                            </div>
+                            }
+                            
+                          
+                        </div>
+                    </div>    
+                </div>
+                    
+                
+              
+                        
+                </div>
+        
+            </div>
+        </article>
+        <!-- end Trainer Profile -->
+
+      
